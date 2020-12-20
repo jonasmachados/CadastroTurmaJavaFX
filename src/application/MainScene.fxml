@@ -15,7 +15,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Area do Aluno" />
+                    <MenuItem fx:id="menuItemAreaDoAluno" mnemonicParsing="false" onAction="#onMenuItemAlunoAction" text="Area do Aluno" />
                         <MenuItem mnemonicParsing="false" text="Area do Professor" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Turma" />
