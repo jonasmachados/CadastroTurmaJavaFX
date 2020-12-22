@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import model.services.AlunoService;
-import util.Alerts;
 
 /**
  * FXML Controller class
@@ -54,6 +47,11 @@ public class MainSceneController implements Initializable {
                 controller.setAlunoService(new AlunoService()); //AlunoService tem metodo que recebe colecao de Aluno
                 controller.updateTableView(); //Metodo updateView recebe 
         });
+    }
+    
+    //Metodo para tratar o evento do menu item TURMA
+    @FXML
+    public void onMenuItemTurmaAction() {
     }
     
      @Override

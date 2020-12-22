@@ -1,21 +1,29 @@
 package application;
 
+import util.Alerts;
+import util.Utils;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import listeners.DataChangeListener;
 import model.entities.Aluno;
-import util.Utils;
-import java.util.Date;
-import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.services.AlunoService;
 
 
@@ -24,7 +32,7 @@ import model.services.AlunoService;
  *
  * @author Jonas create 20/12/2020
  */
-public class AreaDoAlunoController implements Initializable {
+public class AreaDoAlunoController implements Initializable, DataChangeListener {
 
     //Atributos are do aluno
     @FXML
@@ -50,6 +58,9 @@ public class AreaDoAlunoController implements Initializable {
     //TRATANDO EVENTO DO BOTAO NEW
     @FXML
     public void onBtNewAction(ActionEvent event) {
+        Stage parenStage = Utils.currentStage(event);
+        Aluno obj = new Aluno();
+        createDialogForm(obj, "AlunoForm.fxml", parenStage);
     }
     
     //SET PARA CLASSE DEPARTMENT SERVICE
@@ -84,6 +95,40 @@ public class AreaDoAlunoController implements Initializable {
         tableViewAluno.setItems(obsList);
         
     }
+    
+    //Metodo da janela de dialogo, para salvar os dados do aluno
+    private void createDialogForm(Aluno obj, String absoluteName, Stage parentStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+            //instancia um novo stage , criando um novo stage
+
+            AlunoFormController controller = loader.getController();
+            controller.setAluno(obj);
+            controller.setAlunoService(new AlunoService());
+            controller.subscribeDataChangeListener(this);//Inscrevendo para receber o metodo onDataChange
+            controller.updateFormData(); //Carrea o Department no formulario
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Enter Aluno data");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false); //Resizable: Diz se janela pode ser redimencionada
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);//Trava a janela
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alerts.showAlert("IO Exception", "Error loading view ", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    
+    //Qaudno dispara o evento, a o UpdateTableVie e chamado
+    @Override
+    public void onDataChanged() {
+        updateTableView();
+    }
+    
+    
 
     
 

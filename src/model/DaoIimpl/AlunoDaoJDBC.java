@@ -30,7 +30,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM aluno WHERE matricula = ?");
+				"SELECT * FROM `escola`.`aluno` WHERE matricula = ?");
 			st.setInt(1, matricula);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -84,7 +84,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO aluno " +
+				"INSERT INTO `escola`.`aluno` " +
 				"(Nome) " +
 				"VALUES " +
 				"(?)", 
@@ -119,7 +119,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE aluno " +
+				"UPDATE `escola`.`aluno` " +
 				"SET nome = ? " +
 				"WHERE matricula = ?");
 
@@ -141,7 +141,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM aluno WHERE Id = ?");
+				"DELETE FROM `escola`.`aluno` WHERE Id = ?");
 
 			st.setInt(1, matricula);
 
