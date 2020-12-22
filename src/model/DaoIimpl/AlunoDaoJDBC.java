@@ -13,9 +13,6 @@ import java.sql.Statement;
 import model.dao.AlunoDao;
 import model.entities.Aluno;
 
-
-
-
 public class AlunoDaoJDBC implements AlunoDao {
 
 	private Connection conn;

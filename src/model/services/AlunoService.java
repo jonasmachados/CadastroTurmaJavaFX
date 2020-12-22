@@ -19,7 +19,7 @@ public class AlunoService {
         return dao.findAll();
     }
     
-    //Metodo que vai Inserir ou atualizar os dados do Seller
+    //Metodo que vai Inserir ou atualizar os dados do Aluno
     public void saveOrUpdate(Aluno obj){
         if(obj.getMatricula()== null){
             dao.insert(obj);

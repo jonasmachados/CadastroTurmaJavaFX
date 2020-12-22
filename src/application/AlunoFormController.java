@@ -18,6 +18,7 @@ import listeners.DataChangeListener;
 import model.entities.Aluno;
 import model.exceptions.ValidationException;
 import model.services.AlunoService;
+import util.Alerts;
 import util.Constraints;
 import util.Utils;
 
@@ -32,7 +33,7 @@ public class AlunoFormController implements Initializable {
     private Aluno entity;
 
     private AlunoService service;
-    
+
     private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
@@ -40,7 +41,7 @@ public class AlunoFormController implements Initializable {
 
     @FXML
     private TextField txtNome;
-    
+
     @FXML
     private Label labelErrorName;
 
@@ -59,15 +60,31 @@ public class AlunoFormController implements Initializable {
     public void subscribeDataChangeListener(DataChangeListener listener) {
         dataChangeListeners.add(listener);
     }
-    
+
     //Implementando metodo set do entity 
     public void setAluno(Aluno entity) {
         this.entity = entity;
     }
 
     @FXML
-    public void onBtSaveAction() {
-
+    public void onBtSaveAction(ActionEvent event) {
+        if (entity == null) {
+            throw new IllegalStateException("Entity was null");
+        }
+        if (service == null) {
+            throw new IllegalStateException("Service was null");
+        }
+        //Try pois ira tenta salvar no banco de dados
+        try {
+            entity = getFormData();
+            service.saveOrUpdate(entity); //salvandos os dados
+            notifyDataChangeListeners();//Notificando os lsiteners, 
+            Utils.currentStage(event).close();//Fechando a tela
+        } catch (ValidationException e) { //ValidationException lanca uma excecao se o TextFiled estiver vazioe  voce tentar salvar
+            setErrorMessages(e.getErrors());
+        } catch (DbException e) {
+            Alerts.showAlert("Error saving object", null, e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     //Metodo notify, vai emitir o evento dataChange para todos os listeners
@@ -108,14 +125,14 @@ public class AlunoFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initializeNodes();
     }
-    
+
     //Metodo que recebe as validacoes
     private void initializeNodes() {
         Constraints.setTextFieldInteger(txtMatricula); //So pode ser inteiro
         Constraints.setTextFieldMaxLength(txtNome, 30); //Colocando o limite de caracteres no TXT
     }
-    
-     //Metodo responsavel para pegar os dados do Department e popualr a caixa de texto do formulario
+
+    //Metodo responsavel para pegar os dados do Department e popualr a caixa de texto do formulario
     public void updateFormData() {
         //Testa se Entily esta nulo, o meu departamento estiver nulo 
         if (entity == null) {
@@ -126,12 +143,12 @@ public class AlunoFormController implements Initializable {
     }
 
     //Metodo para prencher a mensagen do erro na textLabel
-    private void setErrorMessages(Map<String, String> errors){
+    private void setErrorMessages(Map<String, String> errors) {
         Set<String> fields = errors.keySet();
-        
-        if(fields.contains("name")){
+
+        if (fields.contains("name")) {
             labelErrorName.setText(errors.get("name"));
-        } 
+        }
     }
 
 }
