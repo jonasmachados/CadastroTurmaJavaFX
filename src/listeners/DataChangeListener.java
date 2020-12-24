@@ -7,6 +7,7 @@ package listeners;
  * PADRAO DE PROJETO "OBSERVER"
  */
 
+//PADRAO DE PROJETO OBSERVER
 public interface DataChangeListener {
     
     //Metodo que dispara um evento quando os dados mudam

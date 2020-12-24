@@ -30,16 +30,13 @@
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
         </menus>
       </MenuBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="New" />
+            <Button fx:id="btEdit" mnemonicParsing="false" onAction="#onBtEditAction" text="Edit" />
+            <Button fx:id="btDelete" mnemonicParsing="false" onAction="#onBtDeleteAction" text="Delete" />
         </items>
       </ToolBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">

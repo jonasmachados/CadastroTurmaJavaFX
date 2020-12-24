@@ -122,7 +122,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 
 			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getMatricula());
-
+                      
 			st.executeUpdate();
 		}
 		catch (SQLException e) {

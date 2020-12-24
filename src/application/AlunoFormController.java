@@ -83,6 +83,7 @@ public class AlunoFormController implements Initializable {
         } catch (ValidationException e) { //ValidationException lanca uma excecao se o TextFiled estiver vazioe  voce tentar salvar
             setErrorMessages(e.getErrors());
         } catch (DbException e) {
+            e.printStackTrace();
             Alerts.showAlert("Error saving object", null, e.getMessage(), Alert.AlertType.ERROR);
         }
     }
