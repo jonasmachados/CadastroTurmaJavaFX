@@ -5,6 +5,7 @@ import util.Utils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -80,8 +82,10 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
 
     //TRATANDO EVENTO DO BOTAO DELETE
     @FXML
-    public void onBtDeleteAction() {
-
+    public void onBtDeleteAction(ActionEvent event) {
+        Stage parenStage = Utils.currentStage(event);
+        Aluno obj = tableViewAluno.getSelectionModel().getSelectedItem();
+        removeEntity(obj);
     }
 
     //SET PARA CLASSE DEPARTMENT SERVICE
@@ -97,7 +101,6 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
 //        //listener
 //        tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
 //                (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
-
     }
 
     private void initializeNodes() {
@@ -118,8 +121,8 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
         List<Aluno> list = service.findyAll();
         obsList = FXCollections.observableArrayList(list);
         tableViewAluno.setItems(obsList);
-        
-         //Add outro listener outro observalList
+
+        //Add outro listener outro observalList
         tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
                 (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
 
@@ -154,10 +157,27 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
 
     }
 
-    //Qaudno dispara o evento, a o UpdateTableVie e chamado
+    //Quando dispara o evento, a o UpdateTableVie e chamado
     @Override
     public void onDataChanged() {
         updateTableView();
     }
 
+    //Remocao do Department
+    private void removeEntity(Aluno obj) {
+        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure that you want remove?");
+
+        if (result.get() == ButtonType.OK) {
+            if (service == null) {
+                throw new IllegalStateException("Service was null");
+            }
+            try {
+                service.remove(obj);
+                updateTableView();
+            } catch (db.DbIntegrityException e) {
+                e.printStackTrace();
+                Alerts.showAlert("Error removing object", null, e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
 }

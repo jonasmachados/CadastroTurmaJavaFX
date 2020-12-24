@@ -138,7 +138,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM `escola`.`aluno` WHERE Id = ?");
+				"DELETE FROM `escola`.`aluno` WHERE matricula = ?");
 
 			st.setInt(1, matricula);
 

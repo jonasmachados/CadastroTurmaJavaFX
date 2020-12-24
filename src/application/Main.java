@@ -32,7 +32,7 @@ public class Main extends Application {
             //Cria scena
             mainScene = new Scene(scrollPane);
             primaryStage.setScene(mainScene);
-            primaryStage.setTitle("Sample JavaFX application"); //Titulo para o palco
+            primaryStage.setTitle("SISTEMA ESCOLA"); //Titulo para o palco
             primaryStage.show(); //mostrando o palco
         } catch (IOException e) {
             e.printStackTrace();
