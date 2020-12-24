@@ -25,9 +25,9 @@
       </Label>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Relatorios">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Historico dos Alunos" />
             </items>
           </Menu>
         </menus>
@@ -41,12 +41,12 @@
       </ToolBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
-            <TextField promptText="Pesquisa">
+            <TextField fx:id="txtPesquisar" promptText="Pesquisar">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </TextField>
-            <Button alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="OK">
+            <Button fx:id="btPesquisar" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#onBtPesquisarAction" text="OK">
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>

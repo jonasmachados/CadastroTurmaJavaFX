@@ -1,5 +1,6 @@
 package application;
 
+import db.DbException;
 import util.Alerts;
 import util.Utils;
 import java.io.IOException;
@@ -21,12 +22,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
 import model.entities.Aluno;
+import model.exceptions.ValidationException;
 import model.services.AlunoService;
 
 /**
@@ -37,7 +40,8 @@ import model.services.AlunoService;
 public class AreaDoAlunoController implements Initializable, DataChangeListener {
 
     //Atributos are do aluno
-    @FXML
+    private Aluno entity;
+
     private AlunoService service; //Injetando o aluno service
 
     private ObservableList<Aluno> obsList;
@@ -62,6 +66,12 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
 
     @FXML
     private Button btDelete;
+    
+    @FXML
+    private Button btPesquisar;
+
+    @FXML
+    private TextField txtPesquisar;
 
     //TRATANDO EVENTO DO BOTAO NEW
     @FXML
@@ -79,6 +89,12 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
         createDialogForm(obj, "AlunoForm.fxml", parenStage);
 
     }
+    
+    @FXML
+    public void onBtPesquisarAction(ActionEvent event) {
+        tableViewAluno.setItems(busca());
+
+    }
 
     //TRATANDO EVENTO DO BOTAO DELETE
     @FXML
@@ -87,7 +103,7 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
         Aluno obj = tableViewAluno.getSelectionModel().getSelectedItem();
         removeEntity(obj);
     }
-
+      
     //SET PARA CLASSE DEPARTMENT SERVICE
     public void setAlunoService(AlunoService service) {
         this.service = service;
@@ -122,10 +138,10 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
         obsList = FXCollections.observableArrayList(list);
         tableViewAluno.setItems(obsList);
 
-        //Add outro listener outro observalList
-        tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
-                (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
-
+//        //Add outro listener outro observalList
+//        tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
+//                (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
+         busca();     
     }
 
     //Metodo da janela de dialogo, para salvar os dados do aluno
@@ -152,11 +168,7 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
             Alerts.showAlert("IO Exception", "Error loading view ", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-    public void selecionarItemTableViewClientes(Aluno aluno) {
-
-    }
-
+    
     //Quando dispara o evento, a o UpdateTableVie e chamado
     @Override
     public void onDataChanged() {
@@ -180,4 +192,16 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
             }
         }
     }
+    
+    //Observable LIST que realiza a busca por nome e joga em um Lista
+    private ObservableList<Aluno> busca() {
+        ObservableList<Aluno> alunoPesquisa = FXCollections.observableArrayList();
+        for (int x = 0; x < obsList.size(); x++) {
+           if(obsList.get(x).getNome().toLowerCase().contains(txtPesquisar.getText())) {
+               alunoPesquisa.add(obsList.get(x));
+           }
+        }
+        return alunoPesquisa;
+    }
+    
 }
