@@ -2,7 +2,6 @@
 package model.services;
 
 import java.util.List;
-import model.dao.AlunoDao;
 import model.dao.DaoFactory;
 import model.dao.ProfessorDao;
 import model.entities.Professor;

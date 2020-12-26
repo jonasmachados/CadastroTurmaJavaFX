@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import model.services.AlunoService;
 import model.services.ProfessorService;
+import model.services.TurmaService;
 
 /**
  * FXML Controller class
@@ -62,6 +63,10 @@ public class MainSceneController implements Initializable {
     //Metodo para tratar o evento do menu item TURMA
     @FXML
     public void onMenuItemTurmaAction() {
+        loadView("TurmaControllerView.fxml", (TurmaController controller) -> {
+                controller.setTurmaService(new TurmaService()); //ProfessorService tem metodo que recebe colecao de PROFESSOR
+                controller.updateTableView(); //Metodo updateView recebe 
+        });
     }
     
      @Override
