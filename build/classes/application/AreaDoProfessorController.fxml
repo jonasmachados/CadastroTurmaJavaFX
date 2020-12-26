@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AreaDoAlunoController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AreaDoProfessorController">
    <children>
-      <Label text="Area do Aluno">
+      <Label text="Area do Professor">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -27,7 +27,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Relatorios">
             <items>
-              <MenuItem mnemonicParsing="false" text="Historico dos Alunos" />
+              <MenuItem mnemonicParsing="false" text="Historico dos Professores" />
             </items>
           </Menu>
         </menus>
@@ -41,7 +41,7 @@
       </ToolBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
-            <TextField fx:id="txtPesquisar" onAction="#onBtPesquisarAction" promptText="Pesquisar">
+            <TextField fx:id="txtPesquisar" onAction="#onBtPesquisarAction" promptText="Pesquisar por Nome">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -53,11 +53,11 @@
             </Button>
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewAluno" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewProfessor" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tableColumnMatricula" text="matricula" />
+          <TableColumn fx:id="tableColumnIdNome" text="idnome" />
             <TableColumn fx:id="tableColumnNome" prefWidth="70.0" text="nome" />
-            <TableColumn fx:id="tableColumnCodigo" prefWidth="104.0" text="codigo" />
+            <TableColumn fx:id="tableColumnTitulacao" prefWidth="104.0" text="titulacao" />
         </columns>
       </TableView>
    </children>

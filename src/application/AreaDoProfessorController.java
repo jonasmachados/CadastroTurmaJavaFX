@@ -1,7 +1,5 @@
 package application;
 
-import db.DbException;
-import java.awt.event.KeyEvent;
 import util.Alerts;
 import util.Utils;
 import java.io.IOException;
@@ -9,7 +7,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,35 +25,34 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
-import model.entities.Aluno;
-import model.exceptions.ValidationException;
-import model.services.AlunoService;
+import model.entities.Professor;
+import model.services.ProfessorService;
 
 /**
  * FXML Controller class
  *
- * @author Jonas create 20/12/2020
+ * @author Jonas create 24/12/2020
  */
-public class AreaDoAlunoController implements Initializable, DataChangeListener {
+public class AreaDoProfessorController implements Initializable, DataChangeListener {
 
-    //Atributos are do aluno
-    private Aluno entity;
+    //Atributos are do Professor
+    private Professor entity;
 
-    private AlunoService service; //Injetando o aluno service
+    private ProfessorService service; //Injetando o Professor service
 
-    private ObservableList<Aluno> obsList;
-
-    @FXML
-    private TableView<Aluno> tableViewAluno;
+    private ObservableList<Professor> obsList;
 
     @FXML
-    private TableColumn<Aluno, Integer> tableColumnMatricula;
+    private TableView<Professor> tableViewProfessor;
 
     @FXML
-    private TableColumn<Aluno, Integer> tableColumnNome;
+    private TableColumn<Professor, Integer> tableColumnIdNome;
 
     @FXML
-    private TableColumn<Aluno, Integer> tableColumnCodigo;
+    private TableColumn<Professor, String> tableColumnNome;
+
+    @FXML
+    private TableColumn<Professor, String> tableColumnTitulacao;
 
     @FXML
     private Button btNew;
@@ -78,87 +73,88 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parenStage = Utils.currentStage(event);
-        Aluno obj = new Aluno();
-        createDialogForm(obj, "AlunoForm.fxml", parenStage);
+        Professor obj = new Professor();
+        createDialogForm(obj, "ProfessorForm.fxml", parenStage);
     }
 
     //TRATANDO EVENTO DO BOTAO NEW
     @FXML
     public void onBtEditAction(ActionEvent event) {
         Stage parenStage = Utils.currentStage(event);
-        Aluno obj = tableViewAluno.getSelectionModel().getSelectedItem();
-        createDialogForm(obj, "AlunoForm.fxml", parenStage);
+        Professor obj = tableViewProfessor.getSelectionModel().getSelectedItem();
+        createDialogForm(obj, "ProfessorForm.fxml", parenStage);
 
     }
     
     @FXML
     public void onBtPesquisarAction(ActionEvent event) {
-        tableViewAluno.setItems(busca());
+        tableViewProfessor.setItems(busca());
     }
      
     //TRATANDO EVENTO DO BOTAO DELETE
     @FXML
     public void onBtDeleteAction(ActionEvent event) {
         Stage parenStage = Utils.currentStage(event);
-        Aluno obj = tableViewAluno.getSelectionModel().getSelectedItem();
+        Professor obj = tableViewProfessor.getSelectionModel().getSelectedItem();
         removeEntity(obj);
     }
       
     //SET PARA CLASSE DEPARTMENT SERVICE
-    public void setAlunoService(AlunoService service) {
+    public void setProfessorService(ProfessorService service) {
         this.service = service;
     }
 
-    //Metodo que vai iniciar a table view dos alunos
+    //Metodo que vai iniciar a table view dos Professors
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializeNodes();
 
 //        //listener
-//        tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
+//        tableViewProfessor.getSelectionModel().selectedItemProperty().addListener(
 //                (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
     }
 
     private void initializeNodes() {
         //Iniciar o comportamento das colunas
-        tableColumnMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
+        tableColumnIdNome.setCellValueFactory(new PropertyValueFactory<>("idnome"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tableColumnTitulacao.setCellValueFactory(new PropertyValueFactory<>("titulacao"));
 
         //AJUSTANDO A TABLE VIEW AO TAMANHO DA TELA
         Stage stage = (Stage) Main.getMainScene().getWindow();
-        tableViewAluno.prefHeightProperty().bind(stage.heightProperty());
+        tableViewProfessor.prefHeightProperty().bind(stage.heightProperty());
     }
 
-    //Metodo responsavel por carregar o servico e jogar o Aluno no ObservableList
+    //Metodo responsavel por carregar o servico e jogar o Professor no ObservableList
     public void updateTableView() {
         if (service == null) {
             throw new IllegalStateException("Service was null");
         }
-        List<Aluno> list = service.findyAll();
+        List<Professor> list = service.findyAll();
         obsList = FXCollections.observableArrayList(list);
-        tableViewAluno.setItems(obsList);
+        tableViewProfessor.setItems(obsList);
 
 //        //Add outro listener outro observalList
-//        tableViewAluno.getSelectionModel().selectedItemProperty().addListener(
+//        tableViewProfessor.getSelectionModel().selectedItemProperty().addListener(
 //                (observable, odlValue, newValue) -> selecionarItemTableViewClientes(newValue));
          busca();   
     }
 
-    //Metodo da janela de dialogo, para salvar os dados do aluno
-    private void createDialogForm(Aluno obj, String absoluteName, Stage parentStage) {
+    //Metodo da janela de dialogo, para salvar os dados do Professor
+    private void createDialogForm(Professor obj, String absoluteName, Stage parentStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
             //instancia um novo stage , criando um novo stage
 
-            AlunoFormController controller = loader.getController();
-            controller.setAluno(obj);
-            controller.setAlunoService(new AlunoService());
+            ProfessorFormController controller = loader.getController();
+            controller.setProfessor(obj);
+            controller.setProfessorService(new ProfessorService());
             controller.subscribeDataChangeListener(this);//Inscrevendo para receber o metodo onDataChange, obseervable list
             controller.updateFormData(); //Carrega o Department no formulario
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Enter Aluno data");
+            dialogStage.setTitle("Enter Professor data");
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false); //Resizable: Diz se janela pode ser redimencionada
             dialogStage.initOwner(parentStage);
@@ -176,7 +172,7 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
     }
 
     //Remocao do Department
-    private void removeEntity(Aluno obj) {
+    private void removeEntity(Professor obj) {
         Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure that you want remove?");
 
         if (result.get() == ButtonType.OK) {
@@ -194,14 +190,14 @@ public class AreaDoAlunoController implements Initializable, DataChangeListener 
     }
     
     //Observable LIST que realiza a busca por nome e joga em um Lista
-    private ObservableList<Aluno> busca() {
-        ObservableList<Aluno> alunoPesquisa = FXCollections.observableArrayList();
+    private ObservableList<Professor> busca() {
+        ObservableList<Professor> ProfessorPesquisa = FXCollections.observableArrayList();
         for (int x = 0; x < obsList.size(); x++) {
            if(obsList.get(x).getNome().toLowerCase().contains(txtPesquisar.getText().toLowerCase())) {
-               alunoPesquisa.add(obsList.get(x));
+               ProfessorPesquisa.add(obsList.get(x));
            }
         }
-        return alunoPesquisa;
+        return ProfessorPesquisa;
     }
     
 }

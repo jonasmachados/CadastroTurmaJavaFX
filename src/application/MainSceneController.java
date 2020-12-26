@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import model.services.AlunoService;
+import model.services.ProfessorService;
 
 /**
  * FXML Controller class
@@ -45,6 +46,15 @@ public class MainSceneController implements Initializable {
     public void onMenuItemAlunoAction() {
         loadView("AreaDoAlunoController.fxml", (AreaDoAlunoController controller) -> {
                 controller.setAlunoService(new AlunoService()); //AlunoService tem metodo que recebe colecao de Aluno
+                controller.updateTableView(); //Metodo updateView recebe 
+        });
+    }
+    
+    //Metodo para tratar os eventos do menu item PROFESSOR
+    @FXML
+    public void onMenuItemProfessorAction() {
+        loadView("AreaDoProfessorController.fxml", (AreaDoProfessorController controller) -> {
+                controller.setProfessorService(new ProfessorService()); //ProfessorService tem metodo que recebe colecao de PROFESSOR
                 controller.updateTableView(); //Metodo updateView recebe 
         });
     }
