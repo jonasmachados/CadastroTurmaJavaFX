@@ -53,7 +53,7 @@ public class AlunoDaoJDBC implements AlunoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM `escola`.`aluno` ORDER BY nome");
+				"SELECT * FROM `escola`.`aluno` ORDER BY matricula");
 			rs = st.executeQuery();
 
 			List<Aluno> list = new ArrayList<>();

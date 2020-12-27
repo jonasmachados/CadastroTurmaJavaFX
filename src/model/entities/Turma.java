@@ -7,26 +7,27 @@ public class Turma {
 
     private Integer codigo;
     private String sala;
-    private Date dataAbertura;
-    private Date dataFechamento;
-    private Professor professor;
+//    private Date dataAbertura;
+//    private Date dataFechamento;
+//    private Professor professor;
 
     //CONSTRUTOR SOBRECARREGADO
     public Turma(Integer codigo, String sala, Date dataAbertura, Date dataFechamento, Professor professor) {
         this.codigo = codigo;
         this.sala = sala;
-        this.dataAbertura = dataAbertura;
-        this.dataFechamento = dataFechamento;
-        this.professor = professor;
+        //this.dataAbertura = dataAbertura;
+        //this.dataFechamento = dataFechamento;
+        //this.professor = professor;
     }
     
     //CONSTRUTOR COM 3 STRIBUTOS
-    public Turma(Integer codigo, String sala, Professor professor, Date dataAbertura) {
+    public Turma(Integer codigo, String sala, Date dataAbertura, Date dataFechamento) {
         this.codigo = codigo;
         this.sala = sala;
-        this.professor = professor;
-        this.dataAbertura = dataAbertura;
+        //this.dataAbertura = dataAbertura;
+        //this.dataFechamento = dataFechamento;
     }
+    
 
     //CONSTRUTOR
     public Turma() {
@@ -62,10 +63,10 @@ public class Turma {
     @Override
     public String toString() {
         return "Turma{" + "codigo=" + codigo + 
-                " sala=" + sala + 
-                " dataAbertura=" + dataAbertura + 
-                " dataFechamento=" + dataFechamento + 
-                " professor=" + professor + '.';
+                " sala=" + sala + '.';
+  //              " dataAbertura=" + dataAbertura + 
+  //              " dataFechamento=" + dataFechamento + '.';
+  //              " professor=" + professor + '.';
     }
     
 
@@ -86,28 +87,28 @@ public class Turma {
         this.sala = sala;
     }
 
-    public Professor getProfessor() {
-        return professor;
-    }
+//    public Professor getProfessor() {
+//        return professor;
+//    }
+//
+//    public void setProfessor(Professor professor) {
+//        this.professor = professor;
+//    }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Date getDataAbertura() {
-        return dataAbertura;
-    }
-
-    public void setDataAbertura(Date dataAbertura) {
-        this.dataAbertura = dataAbertura;
-    }
-
-    public Date getDataFechamento() {
-        return dataFechamento;
-    }
-
-    public void setDataFechamento(Date dataFechamento) {
-        this.dataFechamento = dataFechamento;
-    }
+//    public Date getDataAbertura() {
+//        return dataAbertura;
+//    }
+//
+//    public void setDataAbertura(Date dataAbertura) {
+//        this.dataAbertura = dataAbertura;
+//    }
+//
+//    public Date getDataFechamento() {
+//        return dataFechamento;
+//    }
+//
+//    public void setDataFechamento(Date dataFechamento) {
+//        this.dataFechamento = dataFechamento;
+//    }
    
 }

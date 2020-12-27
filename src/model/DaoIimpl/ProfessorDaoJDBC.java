@@ -54,7 +54,7 @@ public class ProfessorDaoJDBC implements ProfessorDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM `escola`.`professor` ORDER BY nome");
+				"SELECT * FROM `escola`.`professor` ORDER BY idnome");
 			rs = st.executeQuery();
 
 			List<Professor> list = new ArrayList<>();

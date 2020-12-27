@@ -52,14 +52,11 @@ public class TurmaController implements Initializable, DataChangeListener {
     @FXML
     private TableColumn<Turma, String> tableColumnSala;
 
-    @FXML
-    private TableColumn<Turma, Integer> tableColumnProfessorId;
-
-    @FXML
-    private TableColumn<Turma, Date> tableColumnDataAbertura;
-
-    @FXML
-    private TableColumn<Turma, Date> tableColumnDataFechamento;
+//    @FXML
+//    private TableColumn<Turma, Date> tableColumnDataAbertura;
+//
+//    @FXML
+//    private TableColumn<Turma, Date> tableColumnDataFechamento;
 
     @FXML
     private Button btNew;
@@ -122,11 +119,10 @@ public class TurmaController implements Initializable, DataChangeListener {
         //Iniciar o comportamento das colunas
         tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnSala.setCellValueFactory(new PropertyValueFactory<>("sala"));
-        tableColumnProfessorId.setCellValueFactory(new PropertyValueFactory<>("professorId"));
-        tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
-        Utils.formatTableColumnDate(tableColumnDataAbertura, "yyyy-MM-dd");// Metodo formatTbaleDouble vai formata a data da tabela
-        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
-        Utils.formatTableColumnDate(tableColumnDataFechamento, "yyyy-MM-dd");// Metodo formatTbaleDouble vai formata a data da tabela
+//        tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
+//        Utils.formatTableColumnDate(tableColumnDataAbertura, "dd/MM/yyyy");// Metodo formatTbaleDate vai formata a data da tabela
+//        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
+//        Utils.formatTableColumnDate(tableColumnDataFechamento, "dd/MM/yyyy");// Metodo formatTbaleDouble vai formata a data da tabela
 
         //AJUSTANDO A TABLE VIEW AO TAMANHO DA TELA
         Stage stage = (Stage) Main.getMainScene().getWindow();

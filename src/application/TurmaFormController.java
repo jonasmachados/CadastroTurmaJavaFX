@@ -2,7 +2,11 @@ package application;
 
 import db.DbException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -12,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import listeners.DataChangeListener;
@@ -43,7 +48,16 @@ public class TurmaFormController implements Initializable {
     private TextField txtSala;
 
     @FXML
-    private Label labelErrorName;
+    private DatePicker txtDataAbertura;
+
+    @FXML
+    private DatePicker txtDataFechamento;
+
+    @FXML
+    private Label labelErrorSala;
+
+    @FXML
+    private Label labelErrorDataAbertura;
 
     @FXML
     private Button btSalve;
@@ -108,6 +122,20 @@ public class TurmaFormController implements Initializable {
             exception.addError("sala", "Field can't be empty");
         }
         obj.setSala(txtSala.getText());
+        
+//        if (txtDataAbertura.getValue() == null) {
+//            exception.addError("dataAbertura", "Field can't be empty");
+//        } else {
+//            Instant instant = Instant.from(txtDataAbertura.getValue().atStartOfDay(ZoneId.systemDefault()));//Pegar o valor de um Date Picker
+//            obj.setDataAbertura(Date.from(instant));
+//        }
+//        
+//        if (txtDataFechamento.getValue() == null) {
+//            exception.addError("dataFechamento", "Field can't be empty");
+//        } else {
+//            Instant instant = Instant.from(txtDataFechamento.getValue().atStartOfDay(ZoneId.systemDefault()));//Pegar o valor de um Date Picker
+//            obj.setDataFechamento(Date.from(instant));
+//        }
 
         //Caso ocorra algum erro , lance a excessao
         if (exception.getErrors().size() > 0) {
@@ -131,6 +159,9 @@ public class TurmaFormController implements Initializable {
     private void initializeNodes() {
         Constraints.setTextFieldInteger(txtCodigo); //So pode ser inteiro
         Constraints.setTextFieldMaxLength(txtSala, 30); //Colocando o limite de caracteres no TXT
+//        Utils.formatDatePicker(txtDataAbertura, "dd/MM/yyyy");
+//        Utils.formatDatePicker(txtDataFechamento, "dd/MM/yyyy");
+        
     }
 
     //Metodo responsavel para pegar os dados do Department e popualr a caixa de texto do formulario
@@ -140,7 +171,13 @@ public class TurmaFormController implements Initializable {
             throw new IllegalStateException("Entity was null");
         }
         txtCodigo.setText(String.valueOf(entity.getCodigo())); //Pega o ID digitado
-        txtSala.setText(entity.getSala());//Pega o ID digitado
+        txtSala.setText(entity.getSala());//Pega o sala digitado
+//        if (entity.getDataAbertura() != null) {
+//            txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
+//        }
+//        if (entity.getDataFechamento()!= null) {
+//            txtDataFechamento.setValue(LocalDate.ofInstant(entity.getDataFechamento().toInstant(), ZoneId.systemDefault()));
+//        }
     }
 
     //Metodo para prencher a mensagen do erro na textLabel
@@ -148,7 +185,7 @@ public class TurmaFormController implements Initializable {
         Set<String> fields = errors.keySet();
 
         if (fields.contains("sala")) {
-            labelErrorName.setText(errors.get("sala"));
+            //labelErrorName.setText(errors.get("sala"));
         }
     }
 

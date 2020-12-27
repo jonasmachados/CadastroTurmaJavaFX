@@ -57,7 +57,6 @@
         <columns>
           <TableColumn fx:id="tableColumnCodigo" text="codigo" />
             <TableColumn fx:id="tableColumnSala" prefWidth="70.0" text="sala" />
-            <TableColumn fx:id="tableColumnProfessorId" prefWidth="104.0" text="professorId" />
             <TableColumn fx:id="tableColumnDataAbertura" prefWidth="75.0" text="dataAbertura" />
             <TableColumn fx:id="tableColumnDataFechamento" prefWidth="75.0" text="dataFechamento" />
         </columns>

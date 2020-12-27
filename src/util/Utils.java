@@ -29,9 +29,9 @@ public class Utils {
             return null;
         }
     }
-    
-        //Metodo para converter o valor da caixa de texto para Inteiro
-    public static Double tryParseToDouble(String  str) {
+
+    //Metodo para converter o valor da caixa de texto para Inteiro
+    public static Double tryParseToDouble(String str) {
         try {
             return Double.parseDouble(str);
         } catch (NumberFormatException e) {
