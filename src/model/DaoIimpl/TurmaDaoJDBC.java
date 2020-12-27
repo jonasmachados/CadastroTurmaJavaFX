@@ -55,7 +55,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT * FROM `escola`.`turma` ORDER BY sala");
+                    "SELECT * FROM `escola`.`turma` ORDER BY codigo");
             rs = st.executeQuery();
 
             List<Turma> list = new ArrayList<>();

@@ -41,7 +41,7 @@
       </ToolBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
-            <TextField fx:id="txtPesquisar" onAction="#onBtPesquisarAction" promptText="Pesquisar">
+            <TextField fx:id="txtPesquisar" onAction="#onBtPesquisarAction" promptText="Pesquisar por Sala">
                <padding>
                   <Insets left="10.0" />
                </padding>
