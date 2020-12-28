@@ -7,7 +7,7 @@ public class Turma {
 
     private Integer codigo;
     private String sala;
-//    private Date dataAbertura;
+    private Date dataAbertura;
 //    private Date dataFechamento;
 //    private Professor professor;
 
@@ -15,16 +15,16 @@ public class Turma {
     public Turma(Integer codigo, String sala, Date dataAbertura, Date dataFechamento, Professor professor) {
         this.codigo = codigo;
         this.sala = sala;
-        //this.dataAbertura = dataAbertura;
+        this.dataAbertura = dataAbertura;
         //this.dataFechamento = dataFechamento;
         //this.professor = professor;
     }
     
     //CONSTRUTOR COM 3 STRIBUTOS
-    public Turma(Integer codigo, String sala, Date dataAbertura, Date dataFechamento) {
+    public Turma(Integer codigo, String sala, Date dataAbertura) {
         this.codigo = codigo;
         this.sala = sala;
-        //this.dataAbertura = dataAbertura;
+        this.dataAbertura = dataAbertura;
         //this.dataFechamento = dataFechamento;
     }
     
@@ -59,12 +59,11 @@ public class Turma {
     }
 
     //TOSTRING
-
     @Override
     public String toString() {
         return "Turma{" + "codigo=" + codigo + 
-                " sala=" + sala + '.';
-  //              " dataAbertura=" + dataAbertura + 
+                " sala=" + sala + 
+                " dataAbertura=" + dataAbertura + '.';
   //              " dataFechamento=" + dataFechamento + '.';
   //              " professor=" + professor + '.';
     }
@@ -95,13 +94,13 @@ public class Turma {
 //        this.professor = professor;
 //    }
 
-//    public Date getDataAbertura() {
-//        return dataAbertura;
-//    }
-//
-//    public void setDataAbertura(Date dataAbertura) {
-//        this.dataAbertura = dataAbertura;
-//    }
+    public Date getDataAbertura() {
+        return dataAbertura;
+    }
+
+    public void setDataAbertura(Date dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
 //
 //    public Date getDataFechamento() {
 //        return dataFechamento;

@@ -164,17 +164,17 @@ public class TurmaFormController implements Initializable {
         
     }
 
-    //Metodo responsavel para pegar os dados do Department e popualr a caixa de texto do formulario
+    //Metodo responsavel para pegar os dados do Aluno e popualar a caixa de texto do formulario
     public void updateFormData() {
-        //Testa se Entily esta nulo, o meu departamento estiver nulo 
+        //Testa se Entily esta nulo
         if (entity == null) {
             throw new IllegalStateException("Entity was null");
         }
         txtCodigo.setText(String.valueOf(entity.getCodigo())); //Pega o ID digitado
         txtSala.setText(entity.getSala());//Pega o sala digitado
-//        if (entity.getDataAbertura() != null) {
-//            txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
-//        }
+        if (entity.getDataAbertura() != null) {
+            txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
+        }
 //        if (entity.getDataFechamento()!= null) {
 //            txtDataFechamento.setValue(LocalDate.ofInstant(entity.getDataFechamento().toInstant(), ZoneId.systemDefault()));
 //        }

@@ -37,8 +37,6 @@ import model.services.TurmaService;
 public class TurmaController implements Initializable, DataChangeListener {
 
     //Atributos are do turma
-    private Turma entity;
-
     private TurmaService service; //Injetando o turma service
 
     private ObservableList<Turma> obsList;
@@ -52,8 +50,8 @@ public class TurmaController implements Initializable, DataChangeListener {
     @FXML
     private TableColumn<Turma, String> tableColumnSala;
 
-//    @FXML
-//    private TableColumn<Turma, Date> tableColumnDataAbertura;
+    @FXML
+    private TableColumn<Turma, Date> tableColumnDataAbertura;
 //
 //    @FXML
 //    private TableColumn<Turma, Date> tableColumnDataFechamento;
@@ -78,7 +76,7 @@ public class TurmaController implements Initializable, DataChangeListener {
     public void onBtNewAction(ActionEvent event) {
         Stage parenStage = Utils.currentStage(event);
         Turma obj = new Turma();
-        createDialogForm(obj, "TurmaForm.fxml", parenStage);
+        createDialogForm(obj, "TurmaFormView.fxml", parenStage);
     }
 
     //TRATANDO EVENTO DO BOTAO NEW
@@ -86,7 +84,7 @@ public class TurmaController implements Initializable, DataChangeListener {
     public void onBtEditAction(ActionEvent event) {
         Stage parenStage = Utils.currentStage(event);
         Turma obj = tableViewTurma.getSelectionModel().getSelectedItem();
-        createDialogForm(obj, "TurmaForm.fxml", parenStage);
+        createDialogForm(obj, "TurmaFormView.fxml", parenStage);
 
     }
 
@@ -119,8 +117,7 @@ public class TurmaController implements Initializable, DataChangeListener {
         //Iniciar o comportamento das colunas
         tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnSala.setCellValueFactory(new PropertyValueFactory<>("sala"));
-//        tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
-//        Utils.formatTableColumnDate(tableColumnDataAbertura, "dd/MM/yyyy");// Metodo formatTbaleDate vai formata a data da tabela
+        tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
 //        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
 //        Utils.formatTableColumnDate(tableColumnDataFechamento, "dd/MM/yyyy");// Metodo formatTbaleDouble vai formata a data da tabela
 

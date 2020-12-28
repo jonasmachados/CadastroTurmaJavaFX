@@ -14,7 +14,7 @@ public class TurmaService {
     
     private TurmaDao dao = DaoFactory.createTurmaDao();
     
-    //Lista todos os objetos Seller
+    //Lista todos os objetos Turma
     public List<Turma> findyAll(){
         return dao.findAll();
     }
