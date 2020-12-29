@@ -62,6 +62,7 @@ public class TurmaDaoJDBC implements TurmaDao {
                 obj.setCodigo(rs.getInt("codigo"));
                 obj.setSala(rs.getString("sala"));
                 obj.setDataAbertura(rs.getDate("dataAbertura"));
+                obj.setDataFechamento(rs.getDate("dataFechamento"));
                 list.add(obj);                
             }
             return list;

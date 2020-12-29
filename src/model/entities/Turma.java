@@ -8,7 +8,7 @@ public class Turma {
     private Integer codigo;
     private String sala;
     private Date dataAbertura;
-//    private Date dataFechamento;
+    private Date dataFechamento;
 //    private Professor professor;
 
     //CONSTRUTOR SOBRECARREGADO
@@ -101,13 +101,13 @@ public class Turma {
     public void setDataAbertura(Date dataAbertura) {
         this.dataAbertura = dataAbertura;
     }
-//
-//    public Date getDataFechamento() {
-//        return dataFechamento;
-//    }
-//
-//    public void setDataFechamento(Date dataFechamento) {
-//        this.dataFechamento = dataFechamento;
-//    }
+
+    public Date getDataFechamento() {
+        return dataFechamento;
+    }
+
+    public void setDataFechamento(Date dataFechamento) {
+        this.dataFechamento = dataFechamento;
+    }
    
 }

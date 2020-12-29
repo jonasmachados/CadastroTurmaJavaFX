@@ -52,9 +52,9 @@ public class TurmaController implements Initializable, DataChangeListener {
 
     @FXML
     private TableColumn<Turma, Date> tableColumnDataAbertura;
-//
-//    @FXML
-//    private TableColumn<Turma, Date> tableColumnDataFechamento;
+
+    @FXML
+    private TableColumn<Turma, Date> tableColumnDataFechamento;
 
     @FXML
     private Button btNew;
@@ -119,8 +119,8 @@ public class TurmaController implements Initializable, DataChangeListener {
         tableColumnSala.setCellValueFactory(new PropertyValueFactory<>("sala"));
         tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
         Utils.formatTableColumnDate(tableColumnDataAbertura, "dd/MM/yyyy");
-//        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
-//        Utils.formatTableColumnDate(tableColumnDataFechamento, "dd/MM/yyyy");// Metodo formatTbaleDouble vai formata a data da tabela
+        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
+        Utils.formatTableColumnDate(tableColumnDataFechamento, "dd/MM/yyyy");// Metodo formatTbaleDouble vai formata a data da tabela
 
         //AJUSTANDO A TABLE VIEW AO TAMANHO DA TELA
         Stage stage = (Stage) Main.getMainScene().getWindow();
