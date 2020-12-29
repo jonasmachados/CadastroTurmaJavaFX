@@ -118,6 +118,7 @@ public class TurmaController implements Initializable, DataChangeListener {
         tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnSala.setCellValueFactory(new PropertyValueFactory<>("sala"));
         tableColumnDataAbertura.setCellValueFactory(new PropertyValueFactory<>("dataAbertura"));
+        Utils.formatTableColumnDate(tableColumnDataAbertura, "dd/MM/yyyy");
 //        tableColumnDataFechamento.setCellValueFactory(new PropertyValueFactory<>("dataFechamento"));
 //        Utils.formatTableColumnDate(tableColumnDataFechamento, "dd/MM/yyyy");// Metodo formatTbaleDouble vai formata a data da tabela
 
@@ -159,6 +160,7 @@ public class TurmaController implements Initializable, DataChangeListener {
             dialogStage.initModality(Modality.WINDOW_MODAL);//Trava a janela
             dialogStage.showAndWait();
         } catch (IOException e) {
+            e.printStackTrace();
             Alerts.showAlert("IO Exception", "Error loading view ", e.getMessage(), Alert.AlertType.ERROR);
         }
     }

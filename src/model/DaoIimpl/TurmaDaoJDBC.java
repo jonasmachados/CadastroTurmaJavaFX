@@ -10,9 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Statement;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
 import model.dao.TurmaDao;
 import model.entities.Professor;
 import model.entities.Turma;
@@ -83,9 +80,9 @@ public class TurmaDaoJDBC implements TurmaDao {
         try {
             st = conn.prepareStatement(
                     "INSERT INTO `escola`.`turma` "
-                    + "(sala) "
+                    + "(sala, dataAbertura) "
                     + "VALUES "
-                    + "(?)",
+                    + "(?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getSala());
@@ -115,7 +112,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         try {
             st = conn.prepareStatement(
                     "UPDATE `escola`.`turma` "
-                    + "SET sala = ? "
+                    + "SET sala = ? , dataAbertura = ?"
                     + "WHERE codigo = ?");
 
             st.setString(1, obj.getSala());

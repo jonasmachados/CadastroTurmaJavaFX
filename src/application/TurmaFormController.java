@@ -159,7 +159,7 @@ public class TurmaFormController implements Initializable {
     private void initializeNodes() {
         Constraints.setTextFieldInteger(txtCodigo); //So pode ser inteiro
         Constraints.setTextFieldMaxLength(txtSala, 30); //Colocando o limite de caracteres no TXT
-//        Utils.formatDatePicker(txtDataAbertura, "dd/MM/yyyy");
+        Utils.formatDatePicker(txtDataAbertura, "dd/MM/yyyy");
 //        Utils.formatDatePicker(txtDataFechamento, "dd/MM/yyyy");
         
     }
