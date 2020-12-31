@@ -27,6 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
 import model.entities.Turma;
+import model.services.ProfessorService;
 import model.services.TurmaService;
 
 /**
@@ -148,7 +149,8 @@ public class TurmaController implements Initializable, DataChangeListener {
 
             TurmaFormController controller = loader.getController();
             controller.setTurma(obj);
-            controller.setTurmaService(new TurmaService());
+            controller.setServices(new TurmaService(), new ProfessorService());
+            controller.loadAssociatedObjects();
             controller.subscribeDataChangeListener(this);//Inscrevendo para receber o metodo onDataChange, obseervable list
             controller.updateFormData(); //Carrega a Turma no formulario
 

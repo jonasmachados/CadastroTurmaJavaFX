@@ -11,17 +11,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import listeners.DataChangeListener;
+import model.entities.Professor;
 import model.entities.Turma;
 import model.exceptions.ValidationException;
+import model.services.ProfessorService;
 import model.services.TurmaService;
 import util.Alerts;
 import util.Constraints;
@@ -39,6 +47,8 @@ public class TurmaFormController implements Initializable {
 
     private TurmaService service;
 
+    private ProfessorService professorService; //Colocando uma dependencia do department Service
+
     private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
@@ -54,6 +64,9 @@ public class TurmaFormController implements Initializable {
     private DatePicker txtDataFechamento;
 
     @FXML
+    private ComboBox<Professor> comboBoxProfessor;
+
+    @FXML
     private Label labelErrorSala;
 
     @FXML
@@ -64,10 +77,13 @@ public class TurmaFormController implements Initializable {
 
     @FXML
     private Button btCancel;
+   
+    private ObservableList<Professor> obsList; //Observable List
 
-    //SET PARA O ALUNO SERVICE
-    public void setTurmaService(TurmaService service) {
+    //SET para injetar dos services: O Turma SERVICE e o Professor Service
+    public void setServices(TurmaService service, ProfessorService professorService) {
         this.service = service;
+        this.professorService = professorService;
     }
 
     //Metodo que adiciona um novo obejto na lista, para isso a classe que recebe o evento deve implementar a interface dataChageListener
@@ -122,7 +138,7 @@ public class TurmaFormController implements Initializable {
             exception.addError("sala", "Field can't be empty");
         }
         obj.setSala(txtSala.getText());
-        
+
         if (txtDataAbertura.getValue() == null) {
             exception.addError("dataAbertura", "Field can't be empty");
         } else {
@@ -161,7 +177,8 @@ public class TurmaFormController implements Initializable {
         Constraints.setTextFieldMaxLength(txtSala, 30); //Colocando o limite de caracteres no TXT
         Utils.formatDatePicker(txtDataAbertura, "dd/MM/yyyy");
 //        Utils.formatDatePicker(txtDataFechamento, "dd/MM/yyyy");
-        
+        initializeComboBoxProfessor();//Inicializar a observable list no comboBox
+
     }
 
     //Metodo responsavel para pegar os dados do Aluno e popualar a caixa de texto do formulario
@@ -172,13 +189,42 @@ public class TurmaFormController implements Initializable {
         }
         txtCodigo.setText(String.valueOf(entity.getCodigo())); //Pega o ID digitado
         txtSala.setText(entity.getSala());//Pega o sala digitado
-        
+
         if (entity.getDataAbertura() != null) {
             txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
         }
 //        if (entity.getDataFechamento()!= null) {
 //            txtDataFechamento.setValue(LocalDate.ofInstant(entity.getDataFechamento().toInstant(), ZoneId.systemDefault()));
 //        }
+        if (entity.getProfessor()== null) {
+            comboBoxProfessor.getSelectionModel().selectFirst();
+        } else {
+            comboBoxProfessor.setValue(entity.getProfessor());//O department que estiver vinculado ao vendedor vai ao comboBox
+
+        }
+    }
+
+    //Carrega os objetos associados, criar a lista e carrega a Turma
+    public void loadAssociatedObjects() {
+        if (professorService == null) {
+            throw new IllegalStateException("ProfessorService was null");
+        }
+        List<Professor> list = professorService.findyAll();
+        obsList = FXCollections.observableArrayList(list);//Joga a lista de Department no observableList
+        comboBoxProfessor.setItems(obsList);
+    }
+
+    //Metodo para inicializar o comboBox
+    private void initializeComboBoxProfessor() {
+        Callback<ListView<Professor>, ListCell<Professor>> factory = lv -> new ListCell<Professor>() {
+            @Override
+            protected void updateItem(Professor item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getNome());
+            }
+        };
+        comboBoxProfessor.setCellFactory(factory);
+        comboBoxProfessor.setButtonCell(factory.call(null));
     }
 
     //Metodo para prencher a mensagen do erro na textLabel
