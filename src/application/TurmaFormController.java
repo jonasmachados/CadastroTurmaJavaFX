@@ -123,12 +123,12 @@ public class TurmaFormController implements Initializable {
         }
         obj.setSala(txtSala.getText());
         
-//        if (txtDataAbertura.getValue() == null) {
-//            exception.addError("dataAbertura", "Field can't be empty");
-//        } else {
-//            Instant instant = Instant.from(txtDataAbertura.getValue().atStartOfDay(ZoneId.systemDefault()));//Pegar o valor de um Date Picker
-//            obj.setDataAbertura(Date.from(instant));
-//        }
+        if (txtDataAbertura.getValue() == null) {
+            exception.addError("dataAbertura", "Field can't be empty");
+        } else {
+            Instant instant = Instant.from(txtDataAbertura.getValue().atStartOfDay(ZoneId.systemDefault()));//Pegar o valor de um Date Picker
+            obj.setDataAbertura(Date.from(instant));
+        }
 //        
 //        if (txtDataFechamento.getValue() == null) {
 //            exception.addError("dataFechamento", "Field can't be empty");
@@ -172,6 +172,7 @@ public class TurmaFormController implements Initializable {
         }
         txtCodigo.setText(String.valueOf(entity.getCodigo())); //Pega o ID digitado
         txtSala.setText(entity.getSala());//Pega o sala digitado
+        
         if (entity.getDataAbertura() != null) {
             txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
         }

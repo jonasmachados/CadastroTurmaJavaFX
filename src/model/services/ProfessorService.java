@@ -14,7 +14,7 @@ public class ProfessorService {
     
     private ProfessorDao dao = DaoFactory.createProfessorDao();
     
-    //Lista todos os objetos Seller
+    //Lista todos os objetos Professores
     public List<Professor> findyAll(){
         return dao.findAll();
     }
@@ -29,7 +29,7 @@ public class ProfessorService {
         }
     }
     
-    //Metodo para remover um Seller do banco de dados
+    //Metodo para remover um Professor do banco de dados
     public void remove(Professor obj){
         dao.deleteById(obj.getIdnome());
     }

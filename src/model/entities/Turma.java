@@ -9,7 +9,7 @@ public class Turma {
     private String sala;
     private Date dataAbertura;
     private Date dataFechamento;
-//    private Professor professor;
+    private Professor professor;
 
     //CONSTRUTOR SOBRECARREGADO
     public Turma(Integer codigo, String sala, Date dataAbertura, Date dataFechamento, Professor professor) {
@@ -86,13 +86,13 @@ public class Turma {
         this.sala = sala;
     }
 
-//    public Professor getProfessor() {
-//        return professor;
-//    }
-//
-//    public void setProfessor(Professor professor) {
-//        this.professor = professor;
-//    }
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
 
     public Date getDataAbertura() {
         return dataAbertura;

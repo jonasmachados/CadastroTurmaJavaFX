@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import model.dao.TurmaDao;
 import model.entities.Professor;
 import model.entities.Turma;
@@ -46,7 +48,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         }
     }
 
-    @Override
+  @Override
     public List<Turma> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -87,6 +89,7 @@ public class TurmaDaoJDBC implements TurmaDao {
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getSala());
+            st.setDate(2, new java.sql.Date(obj.getDataAbertura().getTime()));
 
             int rowsAffected = st.executeUpdate();
 
@@ -149,7 +152,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         obj.setCodigo(rs.getInt("codigo"));
         obj.setSala(rs.getString("sala"));
         //obj.setProfessor(prof);
-//        obj.setDataAbertura(new java.util.Date(rs.getTimestamp("dataAbertura").getTime()));
+        obj.setDataAbertura(new java.util.Date(rs.getTimestamp("dataAbertura").getTime()));
 //        obj.setDataFechamento(new java.util.Date(rs.getTimestamp("dataFechamento").getTime()));
 
         return obj;
