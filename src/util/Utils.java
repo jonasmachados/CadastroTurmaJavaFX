@@ -48,7 +48,7 @@ public class Utils {
                 @Override
                 protected void updateItem(Date item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (item == null || empty) {
+                    if (empty) {
                         setText(null);
                     } else {
                         setText(sdf.format(item));
