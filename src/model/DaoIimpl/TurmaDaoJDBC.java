@@ -48,24 +48,33 @@ public class TurmaDaoJDBC implements TurmaDao {
         }
     }
 
-  @Override
+    @Override
     public List<Turma> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT * FROM `escola`.`turma` ORDER BY codigo");
+                    "SELECT turma.*,professor.nome as ProfNome "
+                    + "FROM turma INNER JOIN professor "
+                    + "ON turma.professorId = professor.idnome "
+                    + "ORDER BY codigo");
+
             rs = st.executeQuery();
 
             List<Turma> list = new ArrayList<>();
+            Map<Integer, Professor> map = new HashMap<>();
 
             while (rs.next()) {
-                Turma obj = new Turma();
-                obj.setCodigo(rs.getInt("codigo"));
-                obj.setSala(rs.getString("sala"));
-                obj.setDataAbertura(rs.getDate("dataAbertura"));
-                obj.setDataFechamento(rs.getDate("dataFechamento"));
-                list.add(obj);                
+
+                Professor prof = map.get(rs.getInt("idnome"));
+
+                if (prof == null) {
+                    prof = instantiateProfessor(rs);
+                    map.put(rs.getInt("idnome"), prof);
+                }
+
+                Turma obj = instantiateTurma(rs, prof);
+                list.add(obj);
             }
             return list;
         } catch (SQLException e) {
@@ -83,9 +92,9 @@ public class TurmaDaoJDBC implements TurmaDao {
         try {
             st = conn.prepareStatement(
                     "INSERT INTO `escola`.`turma` "
-                    + "(sala, dataAbertura) "
+                    + "(sala, professorid, dataAbertura) "
                     + "VALUES "
-                    + "(?, ?)",
+                    + "(?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getSala());
@@ -116,12 +125,13 @@ public class TurmaDaoJDBC implements TurmaDao {
         try {
             st = conn.prepareStatement(
                     "UPDATE `escola`.`turma` "
-                    + "SET sala = ? , dataAbertura = ?"
+                    + "SET sala = ? , professorId = ?, dataAbertura = ?, "
                     + "WHERE codigo = ?");
 
             st.setString(1, obj.getSala());
-            st.setInt(2, obj.getCodigo());
-
+            st.setInt(2, obj.getProfessor().getIdnome());
+            st.setDate(3, new java.sql.Date(obj.getDataAbertura().getTime()));
+            st.setInt(4, obj.getCodigo());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -151,10 +161,9 @@ public class TurmaDaoJDBC implements TurmaDao {
         Turma obj = new Turma();
         obj.setCodigo(rs.getInt("codigo"));
         obj.setSala(rs.getString("sala"));
-        //obj.setProfessor(prof);
-        obj.setDataAbertura(new java.util.Date(rs.getTimestamp("dataAbertura").getTime()));
-//        obj.setDataFechamento(new java.util.Date(rs.getTimestamp("dataFechamento").getTime()));
-
+        obj.setProfessor(prof);
+        obj.setDataAbertura(new java.sql.Date(rs.getTimestamp("dataAbertura").getTime()));
+        obj.setDataFechamento(new java.sql.Date(rs.getTimestamp("dataFechamento").getTime()));
         return obj;
     }
 
@@ -162,7 +171,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         Professor prof = new Professor();
         prof.setIdnome(rs.getInt("idnome"));
         prof.setNome(rs.getString("nome"));
-        prof.setTitulacao(rs.getString("titulaca"));
+        prof.setTitulacao(rs.getString("titulacao"));
         return prof;
     }
 }
