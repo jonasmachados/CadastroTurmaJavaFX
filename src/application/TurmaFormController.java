@@ -77,7 +77,7 @@ public class TurmaFormController implements Initializable {
 
     @FXML
     private Button btCancel;
-
+   
     private ObservableList<Professor> obsList; //Observable List
 
     //SET para injetar dos services: O Turma SERVICE e o Professor Service
@@ -153,8 +153,6 @@ public class TurmaFormController implements Initializable {
 //            obj.setDataFechamento(Date.from(instant));
 //        }
 
-        obj.setProfessor(comboBoxProfessor.getValue());
-
         //Caso ocorra algum erro , lance a excessao
         if (exception.getErrors().size() > 0) {
             throw exception;
@@ -183,7 +181,7 @@ public class TurmaFormController implements Initializable {
 
     }
 
-    //Metodo responsavel para pegar os dados da Turma e popular a caixa de texto do formulario
+    //Metodo responsavel para pegar os dados do Aluno e popualar a caixa de texto do formulario
     public void updateFormData() {
         //Testa se Entily esta nulo
         if (entity == null) {
@@ -194,11 +192,11 @@ public class TurmaFormController implements Initializable {
 
         if (entity.getDataAbertura() != null) {
             txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
-        } 
+        }
 //        if (entity.getDataFechamento()!= null) {
 //            txtDataFechamento.setValue(LocalDate.ofInstant(entity.getDataFechamento().toInstant(), ZoneId.systemDefault()));
 //        }
-        if (entity.getProfessor() == null) {
+        if (entity.getProfessor()== null) {
             comboBoxProfessor.getSelectionModel().selectFirst();
         } else {
             comboBoxProfessor.setValue(entity.getProfessor());//O department que estiver vinculado ao vendedor vai ao comboBox
@@ -212,8 +210,8 @@ public class TurmaFormController implements Initializable {
             throw new IllegalStateException("ProfessorService was null");
         }
         List<Professor> list = professorService.findyAll();
-        obsList = FXCollections.observableArrayList(list);//Joga a lista de Turma no observableList
-        comboBoxProfessor.setItems(obsList);//jogando a observable list no combobox
+        obsList = FXCollections.observableArrayList(list);//Joga a lista de Department no observableList
+        comboBoxProfessor.setItems(obsList);
     }
 
     //Metodo para inicializar o comboBox
@@ -234,15 +232,7 @@ public class TurmaFormController implements Initializable {
         Set<String> fields = errors.keySet();
 
         if (fields.contains("sala")) {
-            labelErrorSala.setText(errors.get("sala"));
-        } else {
-            labelErrorSala.setText("");
-        }
-
-        if (fields.contains("dataAbertura")) {
-            labelErrorDataAbertura.setText(errors.get("dataAbertura"));
-        } else {
-            labelErrorDataAbertura.setText("");
+            //labelErrorName.setText(errors.get("sala"));
         }
     }
 
