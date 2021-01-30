@@ -118,7 +118,7 @@ public class ProfessorFormController implements Initializable {
         if (txtTitulacao.getText() == null || txtTitulacao.getText().trim().equals("")) {
             exception.addError("titulacao", "Field can't be empty");
         }
-        obj.setNome(txtTitulacao.getText());
+        obj.setTitulacao(txtTitulacao.getText());
 
         //Caso ocorra algum erro , lance a excessao
         if (exception.getErrors().size() > 0) {
