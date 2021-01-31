@@ -153,6 +153,8 @@ public class TurmaFormController implements Initializable {
 //            obj.setDataFechamento(Date.from(instant));
 //        }
 
+        obj.setProfessor(comboBoxProfessor.getValue());//Pega a lista que esta no Department e joga na Observable List
+
         //Caso ocorra algum erro , lance a excessao
         if (exception.getErrors().size() > 0) {
             throw exception;

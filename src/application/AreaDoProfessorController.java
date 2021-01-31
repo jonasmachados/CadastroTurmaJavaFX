@@ -168,7 +168,7 @@ public class AreaDoProfessorController implements Initializable, DataChangeListe
     //Quando dispara o evento, a o UpdateTableVie e chamado
     @Override
     public void onDataChanged() {
-        updateTableView();
+        updateTableView(); //Metodo que é executado quando receber o evento 
     }
 
     //Remocao do Department

@@ -1,10 +1,13 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Turma {
+public class Turma implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+    
     private Integer codigo;
     private String sala;
     private Date dataAbertura;
@@ -16,9 +19,10 @@ public class Turma {
         this.codigo = codigo;
         this.sala = sala;
         this.dataAbertura = dataAbertura;
-        //this.dataFechamento = dataFechamento;
-        //this.professor = professor;
+        this.dataFechamento = dataFechamento;
+        this.professor = professor;
     }
+    
     
     //CONSTRUTOR COM 3 STRIBUTOS
     public Turma(Integer codigo, String sala, Date dataAbertura) {
@@ -63,9 +67,9 @@ public class Turma {
     public String toString() {
         return "Turma{" + "codigo=" + codigo + 
                 " sala=" + sala + 
-                " dataAbertura=" + dataAbertura + '.';
-  //              " dataFechamento=" + dataFechamento + '.';
-  //              " professor=" + professor + '.';
+                " dataAbertura=" + dataAbertura + 
+                " dataFechamento=" + dataFechamento + 
+                " professor=" + professor + '.';
     }
     
 
