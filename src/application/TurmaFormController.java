@@ -192,9 +192,9 @@ public class TurmaFormController implements Initializable {
         txtCodigo.setText(String.valueOf(entity.getCodigo())); //Pega o ID digitado
         txtSala.setText(entity.getSala());//Pega o sala digitado
 
-        if (entity.getDataAbertura() != null) {
-            txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
-        }
+      //  if (entity.getDataAbertura() != null) {
+      //      txtDataAbertura.setValue(LocalDate.ofInstant(entity.getDataAbertura().toInstant(), ZoneId.systemDefault()));
+      //  }
 //        if (entity.getDataFechamento()!= null) {
 //            txtDataFechamento.setValue(LocalDate.ofInstant(entity.getDataFechamento().toInstant(), ZoneId.systemDefault()));
 //        }

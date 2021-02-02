@@ -118,8 +118,9 @@ public class TurmaDaoJDBC implements TurmaDao {
                     + "WHERE codigo = ?");
 
             st.setString(1, obj.getSala());
-            st.setInt(2, obj.getCodigo());
-
+            st.setDate(2, new java.sql.Date(obj.getDataAbertura().getTime()));
+            st.setInt(3, obj.getCodigo());
+            
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -149,7 +150,7 @@ public class TurmaDaoJDBC implements TurmaDao {
         Turma obj = new Turma();
         obj.setCodigo(rs.getInt("codigo"));
         obj.setSala(rs.getString("sala"));
-        //obj.setProfessor(prof);
+        obj.setProfessor(prof);
         obj.setDataAbertura(new java.util.Date(rs.getTimestamp("dataAbertura").getTime()));
 //        obj.setDataFechamento(new java.util.Date(rs.getTimestamp("dataFechamento").getTime()));
 
